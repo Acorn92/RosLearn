@@ -99,26 +99,6 @@ namespace uav_controller
 		
 
 
-
-		// EulerAngles cur, des;
-		// tf2::Quaternion q_des, q_new;
-		// q_cur.setW(0.197672382586511);
-		// q_cur.setX(-0.320896137238074);
-		// q_cur.setY(0.688002424189231);
-		// q_cur.setZ(-0.620164464136729);
-		// tf2::Quaternion q_cur(-0.320896137238074, 0.688002424189231, -0.620164464136729, 0.197672382586511);
-		// tf2::Vector3 v = q_cur.getAxis();
-
-		// q_des.setW(0.197820378076505);
-		// q_des.setX(-0.32067588676216);
-		// q_des.setY(0.688356919260282);
-		// q_des.setZ(-0.619837741165755);
-		// tf2::Vector3 v1 = q_des.getAxis();
-		// tf2::Vector3 v3;
-		// for (auto i = 0; i < 4; i++)
-		// 	v3[i] = v1[i] - v[i];
-		// for (auto i = 0; i < 4; i++)
-		// 	v3[i] *= 180/M_PI;
 		setPointTypeInit();
 		// здесь необходимо выполнить рассчет желаемой линейной скорости ЛА
 		// можно пользоваться алгоритмами систем управления которые мы изучили ранее (например П ПД или ПИД регуляторами)
@@ -134,33 +114,6 @@ namespace uav_controller
 		// отправка
 		// setPointPub_.publish(setPoint_);
 
-		//TODO: реализовать П регулятор для линейной скорости
-		//переписать функции запуска с учётом полей класса
-
-		// set_position(0, 0, 2.0, 0);
-        
-        // double ascent_speed = 1.0;  // Установим скорость взлета 1 м\с
-        // double timeout = 2.0 / ascent_speed + 10.0;  // установим таймаут исходя из скорости взлета с небольшим запасом
-        
-
-        // while (ros::ok()) {
-            // rate.sleep();
-
-			// if (std::abs(currentPoseLocal_.pose.position.z - setPoint_.position.z) < 0.1) {
-			// 	        altitude_reached = true;
-			// 	        ROS_INFO("Target altitude reached.");
-			// 	    }
-			// setPoint_.velocity.x = saturation(this->KpVx * (readDesPose.pose.position.x - currentPoseLocal_.pose.position.x), VxMax, VxMin);
-			// setPoint_.velocity.y = saturation(this->KpVy * (readDesPose.pose.position.y - currentPoseLocal_.pose.position.y), VyMax, VyMin);
-			// setPoint_.velocity.z = saturation(this->KpVz * (readDesPose.pose.position.z - currentPoseLocal_.pose.position.z), VzMax, VzMin);
-			// des = quaternionToEuler(0, 
-			// 						readDesPose.pose.position.x, 
-			// 						readDesPose.pose.position.y, 
-			// 						0);
-			// cur = quaternionToEuler(0, 
-			// 						currentPoseLocal_.pose.position.x,
-			// 						currentPoseLocal_.pose.position.y,
-			// 						0);			
 			double des_yaw = atan2(readDesPose.pose.position.y - currentPoseLocal_.pose.position.y,
 									readDesPose.pose.position.x - currentPoseLocal_.pose.position.x);
 			double curren_yaw = tf2::getYaw(currentPoseLocal_.pose.orientation);
@@ -179,24 +132,8 @@ namespace uav_controller
 			ROS_INFO("des.yaw: %f cur.yaw: %f:", des_yaw, curren_yaw);
 			
 			ROS_INFO("Sended yaw_rate %f:", setPoint_.yaw_rate );
-			// ROS_INFO("Kx: %f, Ky: %f, Kz: %f", this->KpVx, this->KpVy, this->KpVz);
 			setPointPub_.publish(setPoint_);
-			
-			// setPoint_.yaw_rate = 1;
-		// }
-
-        //     // Проверим достижение заданной высоты с точностью в 10 см
-        //     if (std::abs(currentPoseLocal_.pose.position.z - 2.0) < 0.1) {
-        //         altitude_reached = true;
-        //         ROS_INFO("Target altitude reached.");
-        //     }
-
-        //     // Проверяем не вышел ли взлет за таймаут
-        //     if ((ros::Time::now() - start_time).toSec() > timeout) {
-        //         ROS_WARN("Timeout reached without achieving target altitude.");
-        //         break;
-        //     }
-        // }
+		
 	}
 
 	void UavController::setPointTypeInit()

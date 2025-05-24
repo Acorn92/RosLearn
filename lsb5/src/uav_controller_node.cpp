@@ -34,5 +34,4 @@ int main(int argc, char **argv)
 
 
     controller.arm(true);
-    controller.calculateAndSendSetpoint();
 }
