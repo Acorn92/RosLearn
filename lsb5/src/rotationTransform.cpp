@@ -6,9 +6,9 @@ EulerAngles			quaternionToEuler(const double &w, const double &x, const double &
 {
 	EulerAngles result;
 	result.roll = std::atan2(2 * (w * x + y * z),
-					1 - 2 * (q.x * q.x + q.y * q.y));
+					1 - 2 * (x * x + y * y));
 
-	double sinp = 2 * (q.w * q.y - q.z * q.x);
+	double sinp = 2 * (w * y - z * x);
 	if (std::abs(sinp) >= 1)
         result.pitch = std::copysign(M_PI / 2, sinp);
     else

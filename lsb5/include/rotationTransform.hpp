@@ -1,5 +1,6 @@
 #ifndef rotationTransform_HPP
 #define rotationTransform_HPP
+#include <cmath>
 
 struct EulerAngles
 {

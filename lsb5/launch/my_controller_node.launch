@@ -1,0 +1,11 @@
+<launch>
+
+<node pkg="lsb5" type="my_uav_circle_fly_example" name="my_uav_circle_fly_example" output="screen"/>
+<node pkg="lsb5" type="my_uav_controller_node" name="my_controller_node" output="screen">
+    <param name="KpVx" value="0.8"/>
+    <param name="KpVy" value="0.8"/>
+    <param name="KpVz" value="0.5"/>
+    <param name="KpYaw" value="0.8"/>
+</node>
+
+</launch>

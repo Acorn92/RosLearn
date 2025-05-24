@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	// создаем экземпляр класса системы управления БЛА
 	uav_controller::UavController controller(n);
 
-	while(ros::ok())
+	while(ros::ok() && !controller.connected())
 	{
 		// Делаем шаг системы
         // После вызова данной комманды если в очереди были сообщения
@@ -28,6 +28,11 @@ int main(int argc, char **argv)
         // что позволяет более точно регулировать частоту работы системы
         rate.sleep();
 
+
+
 	}
 
+
+    controller.arm(true);
+    controller.calculateAndSendSetpoint();
 }
